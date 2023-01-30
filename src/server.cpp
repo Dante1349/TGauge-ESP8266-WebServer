@@ -65,18 +65,13 @@ void loop() {
 void setConfig() {
     Serial.println("Set Config " + server.arg("speed"));
     if (server.hasArg("speed") == true) {
-        Serial.println("speed there");
         int speed = server.arg("speed").toInt();
-        Serial.println(speed);
-        Serial.println(speed>0);
         if (speed > 0) {
-            if(speed>255) {
+            if(speed > 255) {
                 speed = 255;
                 Serial.println("Cannot raise Speed higher than 255.");
-            } 
-            Serial.println("Speed: " + speed);
+            }
         } else {
-            Serial.println("Speed: 0");
             speed = 0;
         }
 
