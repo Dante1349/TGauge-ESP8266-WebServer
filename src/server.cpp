@@ -6,9 +6,12 @@
 #include <ESP8266WebServer.h>
 #include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager
 
-#define TRACK_PIN D1
+#define TRACK_PIN D0
+#define H_BRIDGE_PIN_1 D1
+#define H_BRIDGE_PIN_2 D2
 
 void setConfig();
+void reverseDirection();
 
 ESP8266WebServer server(80);
 
@@ -17,7 +20,8 @@ void setup() {
     // put your setup code here, to run once:
     Serial.begin(115200);
 
-    pinMode(TRACK_PIN, OUTPUT);
+    pinMode(H_BRIDGE_PIN_1, OUTPUT);
+    pinMode(H_BRIDGE_PIN_2, OUTPUT);
 
     //WiFiManager
     //Local intialization. Once its business is done, there is no need to keep it around
@@ -48,6 +52,7 @@ void setup() {
     Serial.println(WiFi.localIP());
 
     server.on("/", setConfig);
+    server.on("/reverse", reverseDirection);
 
     // Start the server
     server.begin();
@@ -55,6 +60,9 @@ void setup() {
 
     while (!Serial)  // Wait for the serial connection to be established.
         delay(50);
+
+    digitalWrite(H_BRIDGE_PIN_1, HIGH);
+
     Serial.print("T-Gauge-Server started");
 }
 
@@ -75,9 +83,19 @@ void setConfig() {
             speed = 0;
         }
 
-        analogWrite(D0, speed);
+        analogWrite(TRACK_PIN, speed);
         server.send(200, "text/plain", "Speed set to: " + String(speed));
     } else {
         server.send(200, "text/plain", "no arg");
     }
+}
+
+void reverseDirection() {
+    Serial.println("reverse");
+    
+    bool currPin = (digitalRead(H_BRIDGE_PIN_1) == HIGH);
+    digitalWrite(H_BRIDGE_PIN_1, !currPin);
+    digitalWrite(H_BRIDGE_PIN_2, currPin);
+
+    server.send(200, "text/plain", "reversed direction");
 }
