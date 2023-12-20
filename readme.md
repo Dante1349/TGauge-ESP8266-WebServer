@@ -4,3 +4,5 @@
 *D0* PWM pin
 *D1* H-Bridge Pin 1
 *D2* H-Bridge Pin 2
+
+![wiring](assets/train.png))
