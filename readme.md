@@ -1,16 +1,5 @@
 # T Gauge ESP8266 Webserver
-
-# Pin config (D1 mini)
-* *D0* PWM pin
-* *D1* H-Bridge Pin 1
-* *D2* H-Bridge Pin 2
-
-![wiring](assets/train.png))
-
-## Usage
-Look for WiFis and Connect to the "T-Gauge-Server-AP" Access Point. Enter Your WiFi crendentials. The AP will automatically connect to your wifi.
-
-Parts needed:
+## Parts needed:
 * [D1 mini](https://amzn.to/3Rty8ny)
 * [L298N Motor Driver](https://amzn.to/3GV3A9p)
 * [Power Distribution Board](https://amzn.to/3RVmvqY)
@@ -18,11 +7,21 @@ Parts needed:
 * [Power outlet](https://amzn.to/3TB5LXm)
 * [5V Power Supply](https://amzn.to/41D6kSH)
 
-Installation:
+## Installation
 * install platformio cli: https://docs.platformio.org/en/stable/core/installation/index.html
 * run in terminal "pio run -t upload --upload-port=/dev/ttyUSB0 && pio device monitor"
 
-Control:
+# Pin config (D1 mini)
+* *D0* PWM pin
+* *D1* H-Bridge Pin 1
+* *D2* H-Bridge Pin 2
+
+![wiring](assets/train.png)
+
+## Usage
+Look for WiFis and Connect to the "T-Gauge-Server-AP" Access Point. Enter Your WiFi crendentials. The AP will automatically connect to your wifi.
+
+## Control
 * Find the "T-Gauge-Server" IP adress in your Router.
 * Open a browser and use the ip like following:
   * Speed: http://*IP*/?speed=150
