@@ -6,12 +6,13 @@
   "display": "fullscreen",
   "orientation": "landscape",
   "scope": "./",
-  "start_url": "./",
+  "start_url": "./index.html",
   "icons": [
     {
-      "src": "assets/icon.svg",
-      "sizes": "72x72",
-      "type": "image/svg+xml",
-    },
+      "src": "assets/icon.png",
+      "sizes": "48x48 72x72 96x96 128x128 180x180 192x192 256x256 384x384 512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }
