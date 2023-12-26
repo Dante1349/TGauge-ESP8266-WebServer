@@ -11,6 +11,7 @@
 * install node: https://nodejs.org/en/download
 * install @angular/cli: https://angular.io/cli
 * install platformio cli: https://docs.platformio.org/en/stable/core/installation/index.html
+* Connect D1Mini ord D1MiniPro
 * run in terminal "./uploadToD1.sh"
 
 # Pin config (D1 mini)
