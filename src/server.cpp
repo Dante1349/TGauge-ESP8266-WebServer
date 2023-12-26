@@ -19,6 +19,7 @@ void reverseDirection();
 
 ESP8266WebServer server(80);
 
+int globalSpeed = 0;
 
 void setup() {
     // put your setup code here, to run once:
@@ -99,7 +100,7 @@ String getContentType(String filename) {
 }
 
 void getSpeed() {
-    server.send(200, "text/plain",  String(analogRead(TRACK_PIN)));
+    server.send(200, "text/plain",  String(globalSpeed));
 }
 
 void handleFileRequest() {
@@ -129,6 +130,8 @@ void setConfig() {
             speed = 0;
         }
 
+        globalSpeed = speed;
+
         analogWrite(TRACK_PIN, speed);
         server.send(200, "text/plain", "Speed set to: " + String(speed));
     } else {
@@ -137,11 +140,12 @@ void setConfig() {
 }
 
 void reverseDirection() {
-    Serial.println("reverse");
+    String log = "reversed direction";
+    Serial.println(log);
     
     bool currPin = (digitalRead(H_BRIDGE_PIN_1) == HIGH);
     digitalWrite(H_BRIDGE_PIN_1, !currPin);
     digitalWrite(H_BRIDGE_PIN_2, currPin);
 
-    server.send(200, "text/plain", "reversed direction");
+    server.send(200, "text/plain", log);
 }
