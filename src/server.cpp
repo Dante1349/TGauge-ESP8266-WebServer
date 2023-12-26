@@ -1,16 +1,19 @@
 #include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
 #include <ESP8266WebServer.h>
-
+#include <FS.h>
+#include <LittleFS.h>
+#include <ESP8266WebServer.h>
 //needed for library
 #include <DNSServer.h>
-#include <ESP8266WebServer.h>
 #include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager
 
 #define TRACK_PIN D0
 #define H_BRIDGE_PIN_1 D1
 #define H_BRIDGE_PIN_2 D2
 
+String getContentType(String filename);
 void setConfig();
+void handleFileRequest();
 void reverseDirection();
 
 ESP8266WebServer server(80);
@@ -22,6 +25,12 @@ void setup() {
 
     pinMode(H_BRIDGE_PIN_1, OUTPUT);
     pinMode(H_BRIDGE_PIN_2, OUTPUT);
+
+    // Initialize LittleFS
+    if(!LittleFS.begin()){
+        Serial.println("An Error has occurred while mounting LittleFS");
+        return;
+    }
 
     //WiFiManager
     //Local intialization. Once its business is done, there is no need to keep it around
@@ -51,8 +60,9 @@ void setup() {
     // Print the IP address
     Serial.println(WiFi.localIP());
 
-    server.on("/", setConfig);
-    server.on("/reverse", reverseDirection);
+    server.on("/config", HTTP_GET, setConfig);
+    server.on("/reverse", HTTP_GET, reverseDirection);
+    server.onNotFound(handleFileRequest);
 
     // Start the server
     server.begin();
@@ -70,9 +80,39 @@ void loop() {
     server.handleClient();
 }
 
+String getContentType(String filename) {
+  if (filename.endsWith(".html")) return "text/html";
+  else if (filename.endsWith(".css")) return "text/css";
+  else if (filename.endsWith(".ico")) return "image/x-icon";
+  else if (filename.endsWith(".js")) return "application/javascript";
+  else if (filename.endsWith(".png")) return "image/png";
+  else if (filename.endsWith(".jpg") || filename.endsWith(".jpeg")) return "image/jpeg";
+  else if (filename.endsWith(".gif")) return "image/gif";
+  else if (filename.endsWith(".ico")) return "image/x-icon";
+  else if (filename.endsWith(".xml")) return "text/xml";
+  else if (filename.endsWith(".pdf")) return "application/x-pdf";
+  else if (filename.endsWith(".zip")) return "application/x-zip";
+  else if (filename.endsWith(".gz")) return "application/x-gzip";
+  return "text/plain";
+}
+
+void handleFileRequest() {
+    String path = server.uri();
+    Serial.println(path);
+    if (path.endsWith("/")) { path += "index.html"; }
+
+    if (LittleFS.exists(path)) {
+        File file = LittleFS.open(path, "r");
+        server.streamFile(file, getContentType(path)); // Get content type dynamically
+        file.close();
+    } else {
+        server.send(404, "text/plain", "File Not Found");
+    }
+}
+
 void setConfig() {
-    Serial.println("Set Config " + server.arg("speed"));
     if (server.hasArg("speed") == true) {
+        Serial.println("Set Config " + server.arg("speed"));
         int speed = server.arg("speed").toInt();
         if (speed > 0) {
             if(speed > 255) {

@@ -24,5 +24,4 @@ Look for WiFis and Connect to the "T-Gauge-Server-AP" Access Point. Enter Your W
 ## Control
 * Find the "T-Gauge-Server" IP adress in your Router.
 * Open a browser and use the ip like following:
-  * Speed: http://*IP*/?speed=150
-  * Reverse: http://*IP*/reverse 
+  * http://*IP*/
