@@ -12,6 +12,7 @@
 #define H_BRIDGE_PIN_2 D2
 
 String getContentType(String filename);
+void getSpeed();
 void setConfig();
 void handleFileRequest();
 void reverseDirection();
@@ -62,6 +63,7 @@ void setup() {
 
     server.on("/config", HTTP_GET, setConfig);
     server.on("/reverse", HTTP_GET, reverseDirection);
+    server.on("/getSpeed", HTTP_GET, getSpeed);
     server.onNotFound(handleFileRequest);
 
     // Start the server
@@ -94,6 +96,10 @@ String getContentType(String filename) {
   else if (filename.endsWith(".zip")) return "application/x-zip";
   else if (filename.endsWith(".gz")) return "application/x-gzip";
   return "text/plain";
+}
+
+void getSpeed() {
+    server.send(200, "text/plain",  String(analogRead(TRACK_PIN)));
 }
 
 void handleFileRequest() {

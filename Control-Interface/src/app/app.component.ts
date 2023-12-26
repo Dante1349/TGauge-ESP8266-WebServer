@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {HttpClient} from "@angular/common/http";
@@ -10,11 +10,14 @@ import {FormsModule} from "@angular/forms";
   imports: [CommonModule, RouterOutlet, FormsModule],
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   private readonly SPEED_LIMIT: number = 120
   public speed: number = 0;
   public realSpeed: number = 0;
   constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+  }
 
   onSliderChange(event: Event): void {
     this.changeSpeed();
