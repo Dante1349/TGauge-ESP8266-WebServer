@@ -1,4 +1,5 @@
 cd Control-Interface && \
+npm i && \
 ng build --configuration=production && \
 cd .. && \
 rm -rf data && \
