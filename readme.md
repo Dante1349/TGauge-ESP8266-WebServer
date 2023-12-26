@@ -1,4 +1,4 @@
-# T Gauge ESP8266 Webserver
+# T Gauge ESP8266 Train Interface
 ## Parts needed:
 * [D1 mini](https://amzn.to/3Rty8ny)
 * [L298N Motor Driver](https://amzn.to/3GV3A9p)
