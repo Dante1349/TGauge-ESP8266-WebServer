@@ -8,8 +8,10 @@
 * [5V Power Supply](https://amzn.to/41D6kSH)
 
 ## Installation
+* install node: https://nodejs.org/en/download
+* install @angular/cli: https://angular.io/cli
 * install platformio cli: https://docs.platformio.org/en/stable/core/installation/index.html
-* run in terminal "pio run -t upload --upload-port=/dev/ttyUSB0 && pio device monitor"
+* run in terminal "./uploadToD1.sh"
 
 # Pin config (D1 mini)
 * *D0* PWM pin
