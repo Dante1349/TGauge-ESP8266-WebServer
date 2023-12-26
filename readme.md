@@ -22,9 +22,7 @@
 ![wiring](assets/train.png)
 
 ## Usage
-Look for WiFis and Connect to the "T-Gauge-Server-AP" Access Point. Enter Your WiFi crendentials. The AP will automatically connect to your wifi.
-
-## Control
+* Look for WiFis and Connect to the "T-Gauge-Server-AP" Access Point. Enter Your WiFi crendentials. The AP will automatically connect to your wifi.
 * Find the "T-Gauge-Server" IP adress in your Router.
 * Open a browser and use the ip like following:
   * http://*IP*/
