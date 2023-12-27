@@ -6,6 +6,7 @@
 //needed for library
 #include <DNSServer.h>
 #include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager
+#include <ESP8266mDNS.h>
 
 #define TRACK_PIN D0
 #define H_BRIDGE_PIN_1 D1
