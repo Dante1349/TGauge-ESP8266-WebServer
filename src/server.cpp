@@ -79,7 +79,7 @@ void setup() {
     Serial.println("Web Server started");
 
     // Add service to MDNS-SD
-        MDNS.addService("http", "tcp", 80);
+    MDNS.addService("http", "tcp", 80);
 
     while (!Serial)  // Wait for the serial connection to be established.
         delay(50);
