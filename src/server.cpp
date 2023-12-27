@@ -56,7 +56,7 @@ void setup() {
         delay(500);
         Serial.print(".");
     }
-    WiFi.hostname("T-Gauge-Server");
+    WiFi.hostname("train");
     Serial.println("WiFi connected");
 
     if (!MDNS.begin("train")) {
