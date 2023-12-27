@@ -59,6 +59,12 @@ void setup() {
     WiFi.hostname("T-Gauge-Server");
     Serial.println("WiFi connected");
 
+    if (!MDNS.begin("train")) {
+        Serial.println("Error setting up MDNS responder!");
+    } else {
+        Serial.println("mDNS responder started");
+    }
+
     // Print the IP address
     Serial.println(WiFi.localIP());
 
@@ -71,6 +77,9 @@ void setup() {
     server.begin();
     Serial.println("Web Server started");
 
+    // Add service to MDNS-SD
+        MDNS.addService("http", "tcp", 80);
+
     while (!Serial)  // Wait for the serial connection to be established.
         delay(50);
 
@@ -80,6 +89,7 @@ void setup() {
 }
 
 void loop() {
+    MDNS.update();
     server.handleClient();
 }
 
